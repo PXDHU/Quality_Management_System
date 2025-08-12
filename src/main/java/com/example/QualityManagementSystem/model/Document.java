@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "document")
 public class Document {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "document_id")
@@ -24,12 +27,17 @@ public class Document {
     @Column(name = "file_type", nullable = false)
     private String file_type;
 
-    @Column(name = "file_path", nullable = false)
-    private String file_path;
+    @Lob
+    private byte[] data;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "uploaded_by", referencedColumnName = "user_id", nullable = false)
-    private AuthUser uploaded_by;
+    // Many documents ↔ Many audits
+    @ManyToMany(mappedBy = "documents")
+    private Set<Audit> audits = new HashSet<>();
+
+    // Many documents ↔ One uploader (AuthUser)
+    @ManyToOne
+    @JoinColumn(name = "uploaded_by", nullable = false)
+    private AuthUser uploadedBy;
 
     @Column(name = "uploaded_at", nullable = false)
     private LocalDateTime uploaded_at = LocalDateTime.now();

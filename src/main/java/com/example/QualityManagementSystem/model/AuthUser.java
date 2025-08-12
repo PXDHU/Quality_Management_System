@@ -15,6 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "\"user\"")
 public class AuthUser {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -23,7 +24,7 @@ public class AuthUser {
     @Column(name = "username", nullable = false, unique = true, length = 255)
     private String username;
 
-    @Column(name = "password", nullable = false, length = 100) // Increased length for bcrypt
+    @Column(name = "password", nullable = false, length = 100)
     private String password;
 
     @Column(name = "full_name", nullable = false, length = 255)
@@ -42,11 +43,13 @@ public class AuthUser {
     @Column(name = "force_password_reset", nullable = false)
     private boolean forcePasswordReset = false;
 
+    // AuthUser ↔ Audit (as auditor)
     @ManyToMany(mappedBy = "auditors")
     private Set<Audit> audits = new HashSet<>();
 
-    @OneToMany(mappedBy = "uploaded_by")
-    private Set<Document> documents = new HashSet<>();
+    // AuthUser ↔ Document (as uploader)
+    @OneToMany(mappedBy = "uploadedBy", cascade = CascadeType.ALL, orphanRemoval = false)
+    private Set<Document> uploadedDocuments = new HashSet<>();
 
     @OneToMany(mappedBy = "assigned_auditor")
     private Set<Plan> plans = new HashSet<>();

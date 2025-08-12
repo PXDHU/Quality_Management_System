@@ -61,6 +61,15 @@ public class Audit {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updated_at = LocalDateTime.now();
 
+    @ManyToMany
+    @JoinTable(
+            name = "audit_document",
+            joinColumns = @JoinColumn(name = "audit_id"),
+            inverseJoinColumns = @JoinColumn(name = "document_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"audit_id", "document_id"})
+    )
+    private Set<Document> documents = new HashSet<>();
+
     @ManyToOne
     @JoinColumn(name = "created_by")
     private AuthUser createdBy;
