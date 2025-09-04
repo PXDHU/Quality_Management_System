@@ -4,5 +4,6 @@ public enum Status {
     PLANNED,
     PENDING,
     IN_PROGRESS,
-    COMPLETED
+    COMPLETED,
+    CLOSED
 }

@@ -1,0 +1,741 @@
+{
+	"info": {
+		"_postman_id": "document-management-qms",
+		"name": "Document Management - QMS",
+		"description": "Comprehensive API collection for testing Document Management module in Quality Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/documents/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"health"
+					]
+				}
+			}
+		},
+		{
+			"name": "Upload Document",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "description",
+							"value": "Q1 2024 Internal Audit Report",
+							"type": "text"
+						},
+						{
+							"key": "auditIds",
+							"value": "1,2",
+							"type": "text"
+						},
+						{
+							"key": "ncIds",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "audit,report,evidence",
+							"type": "text"
+						},
+						{
+							"key": "clauseReference",
+							"value": "9.2",
+							"type": "text"
+						},
+						{
+							"key": "department",
+							"value": "Quality Assurance",
+							"type": "text"
+						},
+						{
+							"key": "isEvidence",
+							"value": "true",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/documents",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents"
+					]
+				}
+			}
+		},
+		{
+			"name": "Get All Documents",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents"
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Document by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/{{document_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"{{document_id}}"
+					]
+				}
+			}
+		},
+		{
+			"name": "Download Document",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/{{document_id}}/download",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"{{document_id}}",
+						"download"
+					]
+				}
+			}
+		},
+		{
+			"name": "Update Document Metadata",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Updated Q1 2024 Internal Audit Report\",\n  \"tags\": \"audit,report,evidence,updated\",\n  \"clauseReference\": \"9.2.1\",\n  \"department\": \"Quality Assurance\",\n  \"isEvidence\": true\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/documents/{{document_id}}/metadata",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"{{document_id}}",
+						"metadata"
+					]
+				}
+			}
+		},
+		{
+			"name": "Link Document to Audits",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[4, 5, 6]"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/documents/{{document_id}}/link-audits",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"{{document_id}}",
+						"link-audits"
+					]
+				}
+			}
+		},
+		{
+			"name": "Link Document to NCs",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[7, 8, 9]"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/documents/{{document_id}}/link-ncs",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"{{document_id}}",
+						"link-ncs"
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Documents by Audit",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/audit/{{audit_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"audit",
+						"{{audit_id}}"
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Documents by Audit with Pagination",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/audit/{{audit_id}}/page?page=0&size=10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"audit",
+						"{{audit_id}}",
+						"page"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Documents by NC",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/nc/{{nc_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"nc",
+						"{{nc_id}}"
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Documents by NC with Pagination",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/nc/{{nc_id}}/page?page=0&size=10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"nc",
+						"{{nc_id}}",
+						"page"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Evidence Documents",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/evidence",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"evidence"
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Documents by Clause",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/clause/9.2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"clause",
+						"9.2"
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Documents by Department",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/department/Quality%20Assurance",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"department",
+						"Quality Assurance"
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Documents by User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/user/{{user_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"user",
+						"{{user_id}}"
+					]
+				}
+			}
+		},
+		{
+			"name": "Search Documents by File Name",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/search/filename?fileName=audit",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"search",
+						"filename"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "audit"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Search Documents by Description",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/search/description?description=quality",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"search",
+						"description"
+					],
+					"query": [
+						{
+							"key": "description",
+							"value": "quality"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Search Documents by Tags",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/search/tags?tag=evidence",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"search",
+						"tags"
+					],
+					"query": [
+						{
+							"key": "tag",
+							"value": "evidence"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Advanced Search Documents",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"fileName\": \"audit\",\n  \"fileType\": \"application/pdf\",\n  \"department\": \"Quality Assurance\",\n  \"clauseReference\": \"9.2\",\n  \"isEvidence\": true,\n  \"uploadedBy\": \"John Doe\",\n  \"description\": \"quality\",\n  \"tags\": \"evidence\",\n  \"page\": 0,\n  \"size\": 20,\n  \"sortBy\": \"uploadedAt\",\n  \"sortDirection\": \"DESC\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/documents/search",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"search"
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Most Accessed Documents",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/most-accessed?page=0&size=10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"most-accessed"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Get Recently Accessed Documents",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/recently-accessed?page=0&size=10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"recently-accessed"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Delete Document (Admin Only)",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/documents/{{document_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"documents",
+						"{{document_id}}"
+					]
+				}
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "jwt_token",
+			"value": "your_jwt_token_here",
+			"type": "string"
+		},
+		{
+			"key": "document_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "audit_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "nc_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,595 @@
+{
+  "info": {
+    "name": "Compliance Mapping & Clause Management API",
+    "description": "Complete Postman collection for testing the Compliance Mapping & Clause Management module APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "jwtToken",
+      "value": "your-jwt-token-here",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwtToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Clause Library Management",
+      "item": [
+        {
+          "name": "Create New Clause",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clauseNumber\": \"4.5\",\n  \"clauseName\": \"New Test Clause\",\n  \"description\": \"This is a test clause for testing purposes\",\n  \"standard\": \"ISO_9001\",\n  \"version\": \"2015\",\n  \"effectiveDate\": \"2015-09-15T00:00:00\",\n  \"category\": \"Testing\",\n  \"riskLevel\": \"LOW\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/clauses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clauses"]
+            }
+          }
+        },
+        {
+          "name": "Get All Clauses",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/clauses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clauses"]
+            }
+          }
+        },
+        {
+          "name": "Get Clause by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/clauses/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clauses", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Clauses by Standard",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/clauses/standard/ISO_9001",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clauses", "standard", "ISO_9001"]
+            }
+          }
+        },
+        {
+          "name": "Get Clauses by Standard and Category",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/clauses/standard/ISO_9001/category/Context",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clauses", "standard", "ISO_9001", "category", "Context"]
+            }
+          }
+        },
+        {
+          "name": "Get Clauses by Standard and Risk Level",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/clauses/standard/ISO_9001/risk/HIGH",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clauses", "standard", "ISO_9001", "risk", "HIGH"]
+            }
+          }
+        },
+        {
+          "name": "Search Clauses by Keyword",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/clauses/search?keyword=context",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clauses", "search"],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "context"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Clauses by Standard and Keyword",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/clauses/search/ISO_9001?keyword=leadership",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clauses", "search", "ISO_9001"],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "leadership"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Active Clauses by Standard and Date",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/clauses/standard/ISO_9001/active?date=2024-01-01T00:00:00",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clauses", "standard", "ISO_9001", "active"],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2024-01-01T00:00:00"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Clause",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clauseNumber\": \"4.5\",\n  \"clauseName\": \"Updated Test Clause\",\n  \"description\": \"This is an updated test clause for testing purposes\",\n  \"standard\": \"ISO_9001\",\n  \"version\": \"2015\",\n  \"effectiveDate\": \"2015-09-15T00:00:00\",\n  \"category\": \"Testing\",\n  \"riskLevel\": \"MEDIUM\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/clauses/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clauses", "1"]
+            }
+          }
+        },
+        {
+          "name": "Deactivate Clause",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{baseUrl}}/api/clauses/1/deactivate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clauses", "1", "deactivate"]
+            }
+          }
+        },
+        {
+          "name": "Activate Clause",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{baseUrl}}/api/clauses/1/activate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clauses", "1", "activate"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Compliance Mapping Management",
+      "item": [
+        {
+          "name": "Create New Compliance Mapping",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceClauseId\": 1,\n  \"targetClauseId\": 12,\n  \"mappingType\": \"EXACT_MATCH\",\n  \"similarityScore\": 0.95,\n  \"mappingNotes\": \"Test mapping between ISO 9001 and ISO 27001\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping"]
+            }
+          }
+        },
+        {
+          "name": "Get All Mappings",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping"]
+            }
+          }
+        },
+        {
+          "name": "Get Mapping by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Mappings Between Standards",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping/standards?sourceStandard=ISO_9001&targetStandard=ISO_27001",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping", "standards"],
+              "query": [
+                {
+                  "key": "sourceStandard",
+                  "value": "ISO_9001"
+                },
+                {
+                  "key": "targetStandard",
+                  "value": "ISO_27001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Mappings by Clause ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping/clause/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping", "clause", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Mappings by Type",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping/type/EXACT_MATCH",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping", "type", "EXACT_MATCH"]
+            }
+          }
+        },
+        {
+          "name": "Get Verified Mappings",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping/verified",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping", "verified"]
+            }
+          }
+        },
+        {
+          "name": "Get Pending Verification Mappings",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping/pending-verification",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping", "pending-verification"]
+            }
+          }
+        },
+        {
+          "name": "Get Compliance Matrix",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping/matrix",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping", "matrix"]
+            }
+          }
+        },
+        {
+          "name": "Get Mappings by Similarity Score",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping/similarity?minScore=0.8",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping", "similarity"],
+              "query": [
+                {
+                  "key": "minScore",
+                  "value": "0.8"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Mappings by Source Standard",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping/source-standard/ISO_9001",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping", "source-standard", "ISO_9001"]
+            }
+          }
+        },
+        {
+          "name": "Get Mappings by Target Standard",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping/target-standard/ISO_27001",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping", "target-standard", "ISO_27001"]
+            }
+          }
+        },
+        {
+          "name": "Update Mapping",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceClauseId\": 1,\n  \"targetClauseId\": 12,\n  \"mappingType\": \"HIGH_SIMILARITY\",\n  \"similarityScore\": 0.90,\n  \"mappingNotes\": \"Updated mapping notes\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping", "1"]
+            }
+          }
+        },
+        {
+          "name": "Verify Mapping",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping/1/verify",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping", "1", "verify"]
+            }
+          }
+        },
+        {
+          "name": "Delete Mapping",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/compliance-mapping/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "compliance-mapping", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Test Scenarios",
+      "item": [
+        {
+          "name": "Scenario 1: Complete Clause Lifecycle",
+          "item": [
+            {
+              "name": "1. Create Clause",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clauseNumber\": \"4.6\",\n  \"clauseName\": \"Test Clause for Lifecycle\",\n  \"description\": \"This clause will be used to test the complete lifecycle\",\n  \"standard\": \"ISO_9001\",\n  \"category\": \"Testing\",\n  \"riskLevel\": \"LOW\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/clauses",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clauses"]
+                }
+              }
+            },
+            {
+              "name": "2. Verify Clause Created",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/api/clauses/standard/ISO_9001",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clauses", "standard", "ISO_9001"]
+                }
+              }
+            },
+            {
+              "name": "3. Update Clause",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clauseNumber\": \"4.6\",\n  \"clauseName\": \"Updated Test Clause for Lifecycle\",\n  \"description\": \"This clause has been updated during lifecycle testing\",\n  \"standard\": \"ISO_9001\",\n  \"category\": \"Testing\",\n  \"riskLevel\": \"MEDIUM\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/clauses/{{clauseId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clauses", "{{clauseId}}"]
+                }
+              }
+            },
+            {
+              "name": "4. Deactivate Clause",
+              "request": {
+                "method": "PATCH",
+                "url": {
+                  "raw": "{{baseUrl}}/api/clauses/{{clauseId}}/deactivate",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clauses", "{{clauseId}}", "deactivate"]
+                }
+              }
+            },
+            {
+              "name": "5. Reactivate Clause",
+              "request": {
+                "method": "PATCH",
+                "url": {
+                  "raw": "{{baseUrl}}/api/clauses/{{clauseId}}/activate",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clauses", "{{clauseId}}", "activate"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Scenario 2: Compliance Mapping Workflow",
+          "item": [
+            {
+              "name": "1. Create Mapping",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceClauseId\": 2,\n  \"targetClauseId\": 13,\n  \"mappingType\": \"HIGH_SIMILARITY\",\n  \"similarityScore\": 0.88,\n  \"mappingNotes\": \"Both clauses address understanding needs and expectations\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/compliance-mapping",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "compliance-mapping"]
+                }
+              }
+            },
+            {
+              "name": "2. Verify Mapping",
+              "request": {
+                "method": "PATCH",
+                "url": {
+                  "raw": "{{baseUrl}}/api/compliance-mapping/{{mappingId}}/verify",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "compliance-mapping", "{{mappingId}}", "verify"]
+                }
+              }
+            },
+            {
+              "name": "3. View Compliance Matrix",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/api/compliance-mapping/matrix",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "compliance-mapping", "matrix"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Scenario 3: Search and Filter Operations",
+          "item": [
+            {
+              "name": "1. Search by Keyword",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/api/clauses/search?keyword=management",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clauses", "search"],
+                  "query": [
+                    {
+                      "key": "keyword",
+                      "value": "management"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "2. Filter by Risk Level",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/api/clauses/standard/ISO_9001/risk/HIGH",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clauses", "standard", "ISO_9001", "risk", "HIGH"]
+                }
+              }
+            },
+            {
+              "name": "3. Get High Similarity Mappings",
+              "request": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/api/compliance-mapping/similarity?minScore=0.9",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "compliance-mapping", "similarity"],
+                  "query": [
+                    {
+                      "key": "minScore",
+                      "value": "0.9"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,413 @@
+{
+	"info": {
+		"_postman_id": "nc-management-collection",
+		"name": "NC Management API Collection",
+		"description": "Comprehensive collection for testing Non-Conformity Management APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "NC Management",
+			"item": [
+				{
+					"name": "Create Non-Conformity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"auditId\": 1,\n  \"instanceId\": 5,\n  \"clauseId\": 3,\n  \"title\": \"Document Control Non-Conformity\",\n  \"description\": \"Quality manual not updated with latest procedures\",\n  \"severity\": \"MEDIUM\",\n  \"assignedToId\": 2,\n  \"createdById\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/nc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"nc"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get NC by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/nc/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"nc",
+								"1"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get All NCs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/nc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"nc"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get NCs with Filtering",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/nc?status=PENDING&severity=HIGH&auditId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"nc"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "PENDING"
+								},
+								{
+									"key": "severity",
+									"value": "HIGH"
+								},
+								{
+									"key": "auditId",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get NCs by Audit",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/nc/audit/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"nc",
+								"audit",
+								"1"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get NCs by Severity",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/nc/severity/HIGH",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"nc",
+								"severity",
+								"HIGH"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Overdue NCs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/nc/overdue",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"nc",
+								"overdue"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Assigned NCs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/nc/assignee/2?status=PENDING",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"nc",
+								"assignee",
+								"2"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "PENDING"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Update NC Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"IN_PROGRESS\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/nc/1/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"nc",
+								"1",
+								"status"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Corrective Actions",
+			"item": [
+				{
+					"name": "Add Corrective Action",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Update quality manual with latest procedures\",\n  \"responsibleId\": 2,\n  \"dueDate\": \"2024-04-15\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/nc/1/actions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"nc",
+								"1",
+								"actions"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Action Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"IN_PROGRESS\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/nc/actions/1/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"nc",
+								"actions",
+								"1",
+								"status"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Root Cause Analysis",
+			"item": [
+				{
+					"name": "Submit RCA",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"steps\": [\n    {\n      \"stepNumber\": 1,\n      \"whyText\": \"Why was the quality manual not updated?\"\n    },\n    {\n      \"stepNumber\": 2,\n      \"whyText\": \"Why was the document control process not followed?\"\n    },\n    {\n      \"stepNumber\": 3,\n      \"whyText\": \"Why was there no training on document control procedures?\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/nc/1/rca",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"nc",
+								"1",
+								"rca"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "NC Closure",
+			"item": [
+				{
+					"name": "Close NC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"finalEvidenceIds\": [\"evidence1\", \"evidence2\"],\n  \"reviewerComment\": \"All corrective actions completed satisfactorily\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/nc/1/close",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"nc",
+								"1",
+								"close"
+							]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "jwt_token",
+			"value": "your_jwt_token_here"
+		}
+	]
+}

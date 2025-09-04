@@ -1,16 +1,19 @@
 package com.example.QualityManagementSystem.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "\"user\"")
@@ -45,21 +48,38 @@ public class AuthUser {
 
     // AuthUser ↔ Audit (as auditor)
     @ManyToMany(mappedBy = "auditors")
-    private Set<Audit> audits = new HashSet<>();
+    @JsonIgnore
+    private List<Audit> audits = new ArrayList<>();
 
     // AuthUser ↔ Document (as uploader)
     @OneToMany(mappedBy = "uploadedBy", cascade = CascadeType.ALL, orphanRemoval = false)
-    private Set<Document> uploadedDocuments = new HashSet<>();
+    @JsonIgnore
+    private List<Document> uploadedDocuments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "assigned_auditor")
-    private Set<Plan> plans = new HashSet<>();
+    @OneToMany(mappedBy = "assignedAuditor")
+    @JsonIgnore
+    private List<Plan> plans = new ArrayList<>();
 
     @OneToMany(mappedBy = "reviewer")
-    private Set<Instance> reviewedInstances = new HashSet<>();
+    @JsonIgnore
+    private List<Instance> reviewedInstances = new ArrayList<>();
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AuthUser that = (AuthUser) o;
+        return userId != null && userId.equals(that.getUserId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

@@ -13,6 +13,6 @@ public interface InstanceRepository extends JpaRepository<Instance, Long> {
     @Query("SELECT COUNT(i) FROM Instance i WHERE i.audit.auditId = :auditId")
     int countByAuditId(Long auditId);
 
-    @Query("SELECT COUNT(i) FROM Instance i WHERE i.audit.auditId = :auditId AND i.conformity_status IS NOT NULL")
+    @Query("SELECT COUNT(i) FROM Instance i WHERE i.audit.auditId = :auditId AND i.conformityStatus IS NOT NULL")
     int countEvaluatedByAuditId(Long auditId);
 }

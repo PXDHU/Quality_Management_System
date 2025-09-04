@@ -1,0 +1,485 @@
+{
+  "info": {
+    "name": "Checklist and Audit Execution API Collection",
+    "description": "Comprehensive collection for testing all Checklist and Audit Execution APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "your-jwt-token-here",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{authToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "1. Checklist Template Management",
+      "item": [
+        {
+          "name": "1.1 Create Checklist Template",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"templateName\": \"ISO 9001:2015 Internal Audit Template\",\n  \"description\": \"Comprehensive template for ISO 9001:2015 internal audits\",\n  \"isoStandard\": \"ISO_9001\",\n  \"clauses\": [\n    {\n      \"clauseId\": 1,\n      \"customText\": \"Check if quality policy is documented and communicated\",\n      \"customDescription\": \"Verify that the quality policy is properly documented and communicated to all employees\"\n    },\n    {\n      \"clauseId\": 2,\n      \"customText\": \"Review quality objectives and their measurement\",\n      \"customDescription\": \"Ensure quality objectives are measurable and aligned with quality policy\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/templates",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "templates"]
+            }
+          }
+        },
+        {
+          "name": "1.2 Get All Templates",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/templates",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "templates"]
+            }
+          }
+        },
+        {
+          "name": "1.3 Get Template by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/templates/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "templates", "1"]
+            }
+          }
+        },
+        {
+          "name": "1.4 Get Templates by ISO Standard",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/templates/iso/ISO_9001",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "templates", "iso", "ISO_9001"]
+            }
+          }
+        },
+        {
+          "name": "1.5 Update Template",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"templateName\": \"Updated ISO 9001:2015 Internal Audit Template\",\n  \"description\": \"Updated comprehensive template for ISO 9001:2015 internal audits\",\n  \"isoStandard\": \"ISO_9001\",\n  \"clauses\": [\n    {\n      \"clauseId\": 1,\n      \"customText\": \"Updated: Check if quality policy is documented and communicated\",\n      \"customDescription\": \"Updated: Verify that the quality policy is properly documented and communicated to all employees\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/templates/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "templates", "1"]
+            }
+          }
+        },
+        {
+          "name": "1.6 Delete Template",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/templates/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "templates", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Checklist Creation from Template",
+      "item": [
+        {
+          "name": "2.1 Create Checklist from Template (All Clauses)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/audits/1/from-template?templateId=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "audits", "1", "from-template"],
+              "query": [
+                {
+                  "key": "templateId",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "2.2 Create Checklist from Template (Selected Clauses)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/audits/1/from-template?templateId=1&selectedClauseIds=1,2",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "audits", "1", "from-template"],
+              "query": [
+                {
+                  "key": "templateId",
+                  "value": "1"
+                },
+                {
+                  "key": "selectedClauseIds",
+                  "value": "1,2"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Checklist Management",
+      "item": [
+        {
+          "name": "3.1 Create Checklist",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isoStandard\": \"ISO_9001\",\n  \"auditId\": 1,\n  \"status\": \"PLANNED\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists"]
+            }
+          }
+        },
+        {
+          "name": "3.2 Get All Checklists",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists"]
+            }
+          }
+        },
+        {
+          "name": "3.3 Get Checklist by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "1"]
+            }
+          }
+        },
+        {
+          "name": "3.4 Get Checklist by Audit ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/audits/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "audits", "1"]
+            }
+          }
+        },
+        {
+          "name": "3.5 Update Checklist",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isoStandard\": \"ISO_9001\",\n  \"auditId\": 1,\n  \"status\": \"IN_PROGRESS\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "1"]
+            }
+          }
+        },
+        {
+          "name": "3.6 Delete Checklist",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "1"]
+            }
+          }
+        },
+        {
+          "name": "3.7 Get Checklists by ISO Standard",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/iso/ISO_9001",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "iso", "ISO_9001"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Checklist Item Evaluation",
+      "item": [
+        {
+          "name": "4.1 Evaluate Single Item (CONFORMITY)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemId\": 1,\n  \"conformityStatus\": \"CONFORMITY\",\n  \"comments\": \"Quality policy is well documented and communicated\",\n  \"evidenceNotes\": \"Reviewed policy document and interviewed employees\",\n  \"evidenceDocumentIds\": [1]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/items/evaluate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "items", "evaluate"]
+            }
+          }
+        },
+        {
+          "name": "4.2 Evaluate Single Item (NON_CONFORMITY)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemId\": 2,\n  \"conformityStatus\": \"NON_CONFORMITY\",\n  \"comments\": \"Quality objectives are not measurable\",\n  \"evidenceNotes\": \"Objectives lack specific metrics and timelines\",\n  \"evidenceDocumentIds\": [2, 3]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/items/evaluate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "items", "evaluate"]
+            }
+          }
+        },
+        {
+          "name": "4.3 Evaluate Single Item (OBSERVATION)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"itemId\": 3,\n  \"conformityStatus\": \"OBSERVATION\",\n  \"comments\": \"Minor improvement opportunity identified\",\n  \"evidenceNotes\": \"Process could be more efficient with additional training\",\n  \"evidenceDocumentIds\": []\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/items/evaluate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "items", "evaluate"]
+            }
+          }
+        },
+        {
+          "name": "4.4 Evaluate Multiple Items",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"itemId\": 1,\n    \"conformityStatus\": \"CONFORMITY\",\n    \"comments\": \"Quality policy is well documented and communicated\",\n    \"evidenceNotes\": \"Reviewed policy document and interviewed employees\",\n    \"evidenceDocumentIds\": [1]\n  },\n  {\n    \"itemId\": 2,\n    \"conformityStatus\": \"NON_CONFORMITY\",\n    \"comments\": \"Quality objectives are not measurable\",\n    \"evidenceNotes\": \"Objectives lack specific metrics and timelines\",\n    \"evidenceDocumentIds\": [2, 3]\n  }\n]"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/items/evaluate-batch",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "items", "evaluate-batch"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Audit Progress Tracking",
+      "item": [
+        {
+          "name": "5.1 Get Audit Progress",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/audits/1/progress",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "audits", "1", "progress"]
+            }
+          }
+        },
+        {
+          "name": "5.2 Get Unevaluated Items",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/audits/1/items/unevaluated",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "audits", "1", "items", "unevaluated"]
+            }
+          }
+        },
+        {
+          "name": "5.3 Get Items by Status (CONFORMITY)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/audits/1/items/status/CONFORMITY",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "audits", "1", "items", "status", "CONFORMITY"]
+            }
+          }
+        },
+        {
+          "name": "5.4 Get Items by Status (NON_CONFORMITY)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/audits/1/items/status/NON_CONFORMITY",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "audits", "1", "items", "status", "NON_CONFORMITY"]
+            }
+          }
+        },
+        {
+          "name": "5.5 Get Items by Status (OBSERVATION)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/audits/1/items/status/OBSERVATION",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "audits", "1", "items", "status", "OBSERVATION"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Complete Workflow Tests",
+      "item": [
+        {
+          "name": "6.1 Complete Audit Execution Workflow",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/audits/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "audits", "1"]
+            }
+          }
+        },
+        {
+          "name": "6.2 Test Error Handling - Non-existent Template",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/templates/999",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "templates", "999"]
+            }
+          }
+        },
+        {
+          "name": "6.3 Test Error Handling - Non-existent Checklist",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/999",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "999"]
+            }
+          }
+        },
+        {
+          "name": "6.4 Test Error Handling - Invalid ISO Standard",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/checklists/templates/iso/INVALID_ISO",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "checklists", "templates", "iso", "INVALID_ISO"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

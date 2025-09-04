@@ -16,6 +16,7 @@ public class ChecklistResponse {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<ChecklistItemDTO> checklistItems;
+    private AuditProgress auditProgress;
 
     @Data
     public static class ChecklistItemDTO {
@@ -25,5 +26,11 @@ public class ChecklistResponse {
         private String clauseName;
         private String customText;
         private String conformityStatus;
+        private String comments;
+        private String evidenceNotes;
+        private String evaluatedBy;
+        private LocalDateTime evaluatedAt;
+        private List<DocumentResponse> evidenceDocuments;
+        private boolean isEvaluated;
     }
 }
